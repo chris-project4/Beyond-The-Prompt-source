@@ -5,18 +5,36 @@ project and the start/ vs solution/ folder layout.
 
 ## Run
 
+**Mac/Linux:**
 ```bash
 cd backend
-python -m venv .venv && source .venv/bin/activate
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 make seed     # demo user + sample events (SQLite, no setup needed)
 make dev      # http://localhost:8000  (docs at /docs)
 ```
 
+**Windows (PowerShell):**
+```powershell
+cd backend
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python -m scripts.seed        # demo user + sample events (SQLite, no setup needed)
+uvicorn app.main:app --reload # http://localhost:8000  (docs at /docs)
+```
+
 ## Test
 
+**Mac/Linux:**
 ```bash
 make test
+```
+
+**Windows (PowerShell):**
+```powershell
+pytest -q
 ```
 
 ## Layout

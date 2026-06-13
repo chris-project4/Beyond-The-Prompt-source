@@ -1,0 +1,6 @@
+{
+  // Use the project virtualenv so Pylance resolves installed packages
+  // (sqlalchemy, fastapi, etc.) instead of the global interpreter.
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.analysis.extraPaths": ["."]
+}

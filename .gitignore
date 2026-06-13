@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 .venv/
+.pytest_cache/
 *.db
 # Node / Angular
 node_modules/
@@ -13,3 +14,4 @@ out-tsc/
 # Secrets / local env
 .env
 .env.*
+.claude/

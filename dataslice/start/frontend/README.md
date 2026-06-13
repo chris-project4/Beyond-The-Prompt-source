@@ -15,5 +15,7 @@ npm start        # http://localhost:4200  (expects the API on :8000)
 - `src/app/core/api.service.ts` — HTTP wrapper.
 - `src/app/features/reports/` — the exemplar feature new features match.
 - `src/app/features/search/` — ad-hoc search.
-- `src/app/features/saved-searches/` — Saved Searches with Alerts (solution
-  branch); mirrors the reports feature structure.
+
+Saved Searches with Alerts (`src/app/features/saved-searches/`) is the feature
+you build during the spec-driven work; it mirrors the reports feature structure
+and exists on the solution branch.

@@ -2,6 +2,7 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
 from fastapi.testclient import TestClient
 
 from app.models.base import Base
@@ -15,7 +16,14 @@ from app.models.user import User
 
 @pytest.fixture()
 def session():
-    engine = create_engine("sqlite://", connect_args={"check_same_thread": False})
+    # StaticPool keeps a single shared connection so the in-memory DB is the
+    # same one the API request sees (TestClient runs requests on another
+    # thread); otherwise each connection gets its own empty :memory: database.
+    engine = create_engine(
+        "sqlite://",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine, expire_on_commit=False, future=True)
     s = Session()

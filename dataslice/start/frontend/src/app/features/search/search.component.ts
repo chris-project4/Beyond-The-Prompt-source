@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchService, EventRow } from './search.service';
@@ -10,34 +10,40 @@ import { SearchService, EventRow } from './search.service';
   template: `
     <h2>Search</h2>
     <div class="card">
-      <input [(ngModel)]="types" placeholder="Event types (comma-separated)" />
+      <input
+        [ngModel]="types()"
+        (ngModelChange)="types.set($event)"
+        placeholder="e.g. signup, purchase, login, error"
+      />
       <button (click)="run()" style="margin-left:8px">Run</button>
+      <p class="muted" style="margin:8px 0 0">
+        Seeded event types: signup, purchase, login, error. Leave blank and Run to list everything.
+      </p>
     </div>
-    @for (e of results; track e.id) {
+    @for (e of results(); track e.id) {
       <div class="card">
         <strong>{{ e.type }}</strong>
         <span class="muted"> · {{ e.source }} · {{ e.occurred_at }} · {{ e.value }}</span>
       </div>
     }
-    @if (ran && results.length === 0) {
+    @if (ran() && results().length === 0) {
       <p class="muted">No matching events.</p>
     }
   `,
 })
 export class SearchComponent {
-  types = '';
-  results: EventRow[] = [];
-  ran = false;
+  types = signal('');
+  results = signal<EventRow[]>([]);
+  ran = signal(false);
 
   constructor(private service: SearchService) {}
 
   run(): void {
-    const spec = this.types.trim()
-      ? { types: this.types.split(',').map((t) => t.trim()) }
-      : {};
+    const value = this.types().trim();
+    const spec = value ? { types: value.split(',').map((t) => t.trim()) } : {};
     this.service.run(spec).subscribe((rs) => {
-      this.results = rs;
-      this.ran = true;
+      this.results.set(rs);
+      this.ran.set(true);
     });
   }
 }

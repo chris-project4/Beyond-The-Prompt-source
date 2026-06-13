@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SavedSearchesService } from './saved-searches.service';
@@ -11,11 +11,16 @@ import { SavedSearch } from './saved-search.model';
   template: `
     <h2>Saved Searches</h2>
     <div class="card">
-      <input [(ngModel)]="name" placeholder="Saved search name" />
-      <input [(ngModel)]="types" placeholder="Event types (comma-separated)" style="margin:0 8px" />
+      <input [ngModel]="name()" (ngModelChange)="name.set($event)" placeholder="Saved search name" />
+      <input
+        [ngModel]="types()"
+        (ngModelChange)="types.set($event)"
+        placeholder="Event types (comma-separated)"
+        style="margin:0 8px"
+      />
       <button (click)="create()">Save</button>
     </div>
-    @for (s of searches; track s.id) {
+    @for (s of searches(); track s.id) {
       <div class="card">
         <strong>{{ s.name }}</strong>
         <span class="muted"> · last run: {{ s.last_run_at || 'never' }}</span>
@@ -23,15 +28,15 @@ import { SavedSearch } from './saved-search.model';
         <button style="float:right" (click)="evaluate(s)">Evaluate now</button>
       </div>
     }
-    @if (searches.length === 0) {
+    @if (searches().length === 0) {
       <p class="muted">No saved searches yet.</p>
     }
   `,
 })
 export class SavedSearchesComponent implements OnInit {
-  searches: SavedSearch[] = [];
-  name = '';
-  types = '';
+  searches = signal<SavedSearch[]>([]);
+  name = signal('');
+  types = signal('');
 
   constructor(private service: SavedSearchesService) {}
 
@@ -39,15 +44,14 @@ export class SavedSearchesComponent implements OnInit {
     this.load();
   }
   load(): void {
-    this.service.list().subscribe((ss) => (this.searches = ss));
+    this.service.list().subscribe((ss) => this.searches.set(ss));
   }
   create(): void {
-    const spec = this.types.trim()
-      ? { types: this.types.split(',').map((t) => t.trim()) }
-      : {};
-    this.service.create(this.name, spec).subscribe(() => {
-      this.name = '';
-      this.types = '';
+    const value = this.types().trim();
+    const spec = value ? { types: value.split(',').map((t) => t.trim()) } : {};
+    this.service.create(this.name(), spec).subscribe(() => {
+      this.name.set('');
+      this.types.set('');
       this.load();
     });
   }
