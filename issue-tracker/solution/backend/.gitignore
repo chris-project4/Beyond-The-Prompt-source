@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.db
+*.db-*
+# Secrets / local env
+.env
+.env.*

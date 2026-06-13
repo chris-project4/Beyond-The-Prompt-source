@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.db
+# Node / Angular
+node_modules/
+dist/
+out-tsc/
+.angular/
+# OS
+.DS_Store
+# Secrets / local env
+.env
+.env.*
