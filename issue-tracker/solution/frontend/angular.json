@@ -20,7 +20,10 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
-          "options": { "proxyConfig": "proxy.conf.json" }
+          "options": {
+            "buildTarget": "issue-tracker:build",
+            "proxyConfig": "proxy.conf.json"
+          }
         }
       }
     }
