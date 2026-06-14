@@ -44,8 +44,8 @@ pytest -q
 - `app/data/` — data access (no raw SQL elsewhere).
 - `app/api/reports.py` — the endpoint exemplar new routers should match.
 - `app/errors.py` — AppError; rendered as `{ "error": { "code", "message" } }`.
-- `specs/` — the product spec, plan, and tasks for the running feature.
-- `CLAUDE.md` — the project constitution / always-loaded briefing.
+The project constitution (`CLAUDE.md`) and the feature `specs/` live one
+level up, at the project root (`dataslice/start/` or `dataslice/solution/`).
 
 Production uses Postgres (set `DATABASE_URL`) and Alembic (`make migrate`);
 dev uses SQLite and auto-creates tables for zero-setup running.

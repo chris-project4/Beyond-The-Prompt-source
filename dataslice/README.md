@@ -13,7 +13,7 @@ Alerts**, the way the book teaches.
 ## Two folders
 
 - **`start/`** — DataSlice *before* the feature. **Work here.** Read
-  `start/backend/specs/saved-search-alerts/` for the spec, plan, and tasks,
+  `start/specs/saved-search-alerts/` for the spec, plan, and tasks,
   then implement the feature yourself, anchoring to the existing patterns.
 - **`solution/`** — the same project *with* Saved Searches with Alerts
   implemented the book's way: anchored to existing patterns, reusing
@@ -53,8 +53,8 @@ cd solution/backend && make test
 ```
 
 ## Where the book's landmarks live (in each folder)
-- `backend/CLAUDE.md` — the project constitution (Appendix A).
-- `backend/specs/saved-search-alerts/` — product spec, plan, tasks
+- `CLAUDE.md` — the project constitution (Appendix A).
+- `specs/saved-search-alerts/` — product spec, plan, tasks
   (Chapters 6–7, Appendix B).
 - `backend/app/search/query.py` — `SearchQuery`, the one search path.
 - `backend/app/notifications/service.py` — `NotificationService`.
