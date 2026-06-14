@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchService, EventRow } from './search.service';
@@ -31,12 +31,16 @@ import { SearchService, EventRow } from './search.service';
     }
   `,
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
   types = signal('');
   results = signal<EventRow[]>([]);
   ran = signal(false);
 
   constructor(private service: SearchService) {}
+
+  ngOnInit(): void {
+    this.run();
+  }
 
   run(): void {
     const value = this.types().trim();

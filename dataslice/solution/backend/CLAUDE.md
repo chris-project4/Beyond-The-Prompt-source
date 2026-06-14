@@ -21,6 +21,9 @@ service -> data layer. Background jobs run on the existing worker.
   new scheduler or background-job framework.
 - Data access: `app/data/`. Never write raw SQL outside this layer.
 - Validation: the shared validators in `app/validation/`.
+- Frontend data access: the shared `ApiService` in
+  `src/app/core/api.service.ts`. Feature services call it; components
+  never use `HttpClient` or `fetch` directly.
 
 ## Conventions
 - Errors: raise `AppError` subclasses (`app/errors.py`). The API layer
@@ -30,8 +33,10 @@ service -> data layer. Background jobs run on the existing worker.
   should be indistinguishable from it in structure and style.
 - Naming: snake_case in Python, camelCase in TypeScript. Match the
   surrounding file.
-- Frontend: follow existing component structure in `src/app/features/`.
-  Match an existing feature module; do not introduce new state patterns.
+- Frontend: new feature modules follow `src/app/features/reports/`
+  (model, service, component) and should be indistinguishable from it in
+  structure. Reuse the shared `ApiService`; use the built-in control flow
+  (`@if`, `@for`); do not introduce new state patterns.
 
 ## Security
 - Validate input through `app/validation/` at the boundary; never trust client input.

@@ -61,6 +61,10 @@ Scenario: Saved searches are private to their owner
 - Schedule evaluation on the existing worker (`app/worker/`); no new
   scheduler.
 - Persist via the data layer (`app/data/`); no raw SQL.
+- Frontend: build the `saved-searches` feature mirroring
+  `src/app/features/reports/` (model, service, component); the service goes
+  through the shared `ApiService`, and the component uses the built-in
+  control flow. No new state patterns.
 
 ## Open questions
 - None outstanding. (Per-search schedules deferred; see Out of scope.)

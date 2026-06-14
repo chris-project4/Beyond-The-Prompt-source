@@ -15,8 +15,10 @@ Approach, reviewed before implementation.
    the existing worker. No new scheduler.
 5. **API.** Add `app/api/saved_searches.py` following `app/api/reports.py`:
    list, create, delete, plus an evaluate-now endpoint.
-6. **Frontend.** Add a `saved-searches` feature module matching the
-   existing feature structure.
+6. **Frontend.** Add a `saved-searches` feature mirroring
+   `features/reports/` (model, service, component); the service calls the
+   shared `ApiService`; the component uses the built-in control flow. No
+   new state patterns.
 7. **Tests.** Encode the three acceptance scenarios as tests.
 
 Constraints honored: reuse SearchQuery and NotificationService, existing

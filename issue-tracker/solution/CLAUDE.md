@@ -34,6 +34,14 @@ already exist.
 - Dependencies are pinned to exact versions; a new one needs a line in the spec justifying it.
 This example has no auth layer, so there are no protected routes yet; in a real service an explicit authorization check on every protected route belongs here too.
 
+## Design
+- The UI follows one design system, defined as tokens in `styles.css`: Signal
+  Lime on near-black, Space Grotesk for the interface and JetBrains Mono for
+  data. Draw from the tokens; never hard-code a colour or font in a component.
+- Colour is functional: lime is the primary action and focus, orange is an
+  assignee. Hairline borders over shadows, mono for ids and dates, a visible
+  focus ring, and reduced-motion respected. See `specs/polished-ui` for intent.
+
 ## Hard constraints
 - SQLite via better-sqlite3, used synchronously. No ORM.
 - No new runtime dependency without a line in the spec explaining why.

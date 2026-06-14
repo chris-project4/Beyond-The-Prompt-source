@@ -7,6 +7,7 @@
 - [ ] Register periodic evaluation with the existing worker.
 - [ ] Add the API endpoints (list, create, delete, evaluate-now),
       following `app/api/reports.py`.
-- [ ] Build the Angular saved-searches feature, matching an existing
-      feature module.
+- [ ] Build the Angular `saved-searches` feature mirroring
+      `features/reports/` (model, service, component), reusing the shared
+      `ApiService`.
 - [ ] Write tests encoding the three acceptance scenarios.

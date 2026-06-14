@@ -1,24 +1,35 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IssueService } from './issue.service';
 
 @Component({
   selector: 'app-issue-create',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   template: `
-    <h1>New issue</h1>
-    <form (ngSubmit)="submit()">
-      <label>Title
-        <input name="title" [(ngModel)]="title" required>
-      </label>
-      <label>Description
-        <textarea name="description" [(ngModel)]="description"></textarea>
-      </label>
-      @if (error()) { <p class="error">{{ error() }}</p> }
-      <button type="submit" [disabled]="!title.trim()">Create issue</button>
-    </form>
+    <section class="page page-narrow">
+      <div class="page-head">
+        <h1 class="page-title">New issue</h1>
+      </div>
+      <form class="panel form" (ngSubmit)="submit()">
+        <label class="field">
+          <span class="field-label">Title</span>
+          <input class="input" name="title" [(ngModel)]="title" placeholder="Short summary of the problem" required />
+        </label>
+        <label class="field">
+          <span class="field-label">Description</span>
+          <textarea class="input textarea" name="description" [(ngModel)]="description" placeholder="What happened, and what you expected" rows="5"></textarea>
+        </label>
+        @if (error()) {
+          <p class="form-error">{{ error() }}</p>
+        }
+        <div class="form-actions">
+          <a class="btn btn-ghost" routerLink="/">Cancel</a>
+          <button class="btn btn-primary" type="submit" [disabled]="!title.trim()">Create issue</button>
+        </div>
+      </form>
+    </section>
   `,
 })
 export class IssueCreateComponent {
